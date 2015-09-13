@@ -1,0 +1,52 @@
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+    
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+
+    group = "se.darknova"
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+project (':service') {
+    apply plugin: 'application'
+    apply plugin: 'docker'
+    
+    mainClassName = 'se.darknova.template.service.jetty.Main'
+    
+    distDocker {
+        exposePort 8080
+        setEnvironment 'SERVICE_NAME', 'test'
+        dryRun true
+        applicationName 'test'
+    }
+    
+    docker {
+        baseImage = 'java:8-jre'
+    }
+    
+    dependencies {
+        compile "org.glassfish.jersey.core:jersey-common:$jerseyVersion"
+        compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
+        compile "org.glassfish.jersey.containers:jersey-container-servlet:$jerseyVersion"
+        compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
+    
+        compile "org.eclipse.jetty:jetty-server:$jettyVersion"
+        compile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
+    
+        compile "com.google.inject:guice:$guiceVersion"
+        compile "com.google.inject.extensions:guice-servlet:$guiceVersion"
+    
+        compile "org.glassfish.hk2:hk2:2.3.0-b05"
+        compile "org.glassfish.hk2:guice-bridge:2.2.0"
+    }
+}
