@@ -1,8 +1,31 @@
 #!/bin/sh
 
 NAME=$1
-JOIN_IP=$2
+shift
+JOIN_IP=
+CLIENT=
+
+while getopts "cj:" opt; do
+    case "$opt" in
+        c)
+            CLIENT=yes
+            ;;
+        j)
+            JOIN_IP=$OPTARG
+            ;;
+        *)
+            ;;
+    esac
+done
 
 source $HOME/.docker-$NAME.rc
-docker-machine ssh $NAME -- /opt/utils/bin/runConsulDocker.sh -c -j $JOIN_IP
+if [ "" != "$JOIN_IP" ]; then
+    if [ "" != "$CLIENT" ]; then
+        docker-machine ssh $NAME -- /opt/utils/bin/runConsulDocker.sh -c -j $JOIN_IP
+    else
+	docker-machine ssh $NAME -- /opt/utils/bin/runConsulDocker.sh -j $JOIN_IP
+    fi
+else
+    docker-machine ssh $NAME -- /opt/utils/bin/runConsulDocker.sh
+fi
 docker-machine ssh $NAME /opt/utils/bin/runRegistrator.sh
