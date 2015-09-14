@@ -12,7 +12,6 @@ import se.darknova.template.service.jersey.Application;
  * @author seamonr@gmail.com
  */
 public class Main {
-
     public static void main(String[] args) throws Exception {
         Server server = new Server(8080);
         ServletContextHandler sch = new ServletContextHandler(server, "/");

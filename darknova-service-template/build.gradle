@@ -10,6 +10,7 @@ subprojects {
     apply plugin: 'maven'
 
     group = "se.darknova"
+    sourceCompatibility = '1.8'
 
     repositories {
         mavenLocal()
@@ -22,16 +23,17 @@ project (':service') {
     apply plugin: 'docker'
     
     mainClassName = 'se.darknova.template.service.jetty.Main'
-    
+    sourceCompatibility = '1.8'
+
     distDocker {
         exposePort 8080
         setEnvironment 'SERVICE_NAME', 'test'
-        dryRun true
-        applicationName 'test'
+        runCommand 'apk add --update bash'
     }
     
     docker {
-        baseImage = 'java:8-jre'
+        baseImage = 'jeanblanchard/java:8'
+        applicationName = 'test'
     }
     
     dependencies {
