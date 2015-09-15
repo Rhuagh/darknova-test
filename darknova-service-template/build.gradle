@@ -27,15 +27,16 @@ project (':service') {
 
     distDocker {
         exposePort 8080
-        setEnvironment 'SERVICE_NAME', 'test'
-        runCommand 'apk add --update bash'
+        setEnvironment 'SERVICE_NAME', 'darknova-test'
+	setEnvironment 'SERVICE_8080_TAGS', 'video'
+        runCommand 'opkg-install bash'
     }
     
     docker {
-        baseImage = 'jeanblanchard/java:8'
-        applicationName = 'test'
+        baseImage = 'darknova/java8'
+        applicationName = 'darknova-test-service'
     }
-    
+
     dependencies {
         compile "org.glassfish.jersey.core:jersey-common:$jerseyVersion"
         compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
