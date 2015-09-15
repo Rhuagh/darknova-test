@@ -21,11 +21,11 @@ done
 source $HOME/.docker-$NAME.rc
 if [ "" != "$JOIN_IP" ]; then
     if [ "" != "$CLIENT" ]; then
-        docker-machine ssh $NAME -- /opt/utils/bin/runConsulDocker.sh -c -j $JOIN_IP
+        docker-machine ssh $NAME -- /opt/utils/bin/runConsul.sh -c -j $JOIN_IP
     else
-	docker-machine ssh $NAME -- /opt/utils/bin/runConsulDocker.sh -j $JOIN_IP
+	docker-machine ssh $NAME -- /opt/utils/bin/runConsul.sh -j $JOIN_IP
     fi
 else
-    docker-machine ssh $NAME -- /opt/utils/bin/runConsulDocker.sh
+    docker-machine ssh $NAME -- /opt/utils/bin/runConsul.sh
 fi
 docker-machine ssh $NAME /opt/utils/bin/runRegistrator.sh
