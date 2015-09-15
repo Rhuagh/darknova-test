@@ -35,6 +35,13 @@ case "$COMMAND" in
         ;;
     provision)
         provisionMachine $NAME
+        afterStart $NAME
+        ;;
+    restart)
+        docker-machine stop $NAME
+        docker-machine start $NAME
+        source $HOME/.docker-$NAME.rc
+        afterStart $NAME
         ;;
     start)
         docker-machine start $NAME
