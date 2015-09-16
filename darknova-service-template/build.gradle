@@ -47,9 +47,9 @@ project(':service') {
     mainClassName = 'se.darknova.template.service.Main'
 
     distDocker {
-        exposePort 8081
+        exposePort 8250
         setEnvironment 'SERVICE_NAME', 'darknova-test'
-        setEnvironment 'SERVICE_8080_TAGS', 'video'
+        setEnvironment 'SERVICE_8250_TAGS', 'video'
         runCommand 'opkg-install bash'
     }
 
@@ -61,5 +61,6 @@ project(':service') {
     dependencies {
         compile 'se.darknova:service-module:1.0-SNAPSHOT'
         compile 'se.darknova:rest-module:1.0-SNAPSHOT'
+        compile 'se.darknova:config-module:1.0-SNAPSHOT'
     }
 }

@@ -2,6 +2,7 @@ package se.darknova.template.service;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.netflix.archaius.guice.ArchaiusModule;
 import se.darknova.rest.RestModule;
 import se.darknova.service.GuavaRun;
 import se.darknova.service.GuavaServiceModule;
@@ -13,7 +14,8 @@ import se.darknova.template.service.api.ResourceModule;
 public class Main {
 
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector(new GuavaServiceModule(),
+        Injector injector = Guice.createInjector(new ArchaiusModule(),
+                                                 new GuavaServiceModule(),
                                                  new RestModule(),
                                                  new ResourceModule());
         injector.getInstance(GuavaRun.class).start();

@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.inject.Inject;
 
 import com.google.inject.servlet.GuiceFilter;
+import com.netflix.archaius.Config;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -27,17 +28,21 @@ public class RestServerService extends AbstractIdleService {
 
     private final Provider<GuiceResteasyBootstrapServletContextListener> contextListener;
 
+    private final Config config;
+
     @Inject
     public RestServerService(GuavaServiceRepository serviceRepository,
-                             Provider<GuiceResteasyBootstrapServletContextListener> contextListener) {
+                             Provider<GuiceResteasyBootstrapServletContextListener> contextListener,
+                             Config config) {
         this.contextListener = contextListener;
+        this.config = config;
         serviceRepository.add(this);
     }
 
     @Override
     protected void startUp() throws Exception {
         Preconditions.checkState(server == null, "Server already started");
-        server = new Server(8081);
+        server = new Server(config.getInteger("http.port"));
         final ServletContextHandler sch = new ServletContextHandler(server, "/");
         sch.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
         sch.addServlet(HttpServletDispatcher.class, "/");
