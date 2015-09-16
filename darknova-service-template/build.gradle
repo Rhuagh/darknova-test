@@ -36,8 +36,7 @@ project(':client') {
     }
 
     dependencies {
-        compile 'dnsjava:dnsjava:2.1.7'
-
+        compile 'se.darknova:discovery-module:1.0-SNAPSHOT'
     }
 }
 
@@ -45,10 +44,10 @@ project(':service') {
     apply plugin: 'application'
     apply plugin: 'docker'
 
-    mainClassName = 'se.darknova.template.service.jetty.Main'
+    mainClassName = 'se.darknova.template.service.Main'
 
     distDocker {
-        exposePort 8080
+        exposePort 8081
         setEnvironment 'SERVICE_NAME', 'darknova-test'
         setEnvironment 'SERVICE_8080_TAGS', 'video'
         runCommand 'opkg-install bash'
@@ -60,17 +59,7 @@ project(':service') {
     }
 
     dependencies {
-        compile "org.glassfish.jersey.core:jersey-common:$jerseyVersion"
-        compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
-        compile "org.glassfish.jersey.containers:jersey-container-servlet:$jerseyVersion"
-        compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
-
-        compile "org.eclipse.jetty:jetty-server:$jettyVersion"
-        compile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
-
-        compile "com.google.inject.extensions:guice-servlet:$guiceVersion"
-
-        compile "org.glassfish.hk2:hk2:2.3.0-b05"
-        compile "org.glassfish.hk2:guice-bridge:2.2.0"
+        compile 'se.darknova:service-module:1.0-SNAPSHOT'
+        compile 'se.darknova:rest-module:1.0-SNAPSHOT'
     }
 }

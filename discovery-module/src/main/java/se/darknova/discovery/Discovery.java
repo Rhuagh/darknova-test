@@ -1,4 +1,4 @@
-package se.darknova.template.client.discovery;
+package se.darknova.discovery;
 
 import lombok.Value;
 

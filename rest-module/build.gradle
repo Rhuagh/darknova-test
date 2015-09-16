@@ -1,0 +1,26 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = "se.darknova"
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.projectlombok:lombok:1.16.6'
+    compile 'com.google.guava:guava:19.0-rc1'
+    compile "com.google.inject:guice:$guiceVersion"
+    compile "org.jboss.resteasy:resteasy-jaxrs:$resteasyVersion"
+    compile "org.jboss.resteasy:resteasy-jackson-provider:$resteasyVersion"
+    compile "org.jboss.resteasy:resteasy-guice:$resteasyVersion"
+
+    compile "org.eclipse.jetty:jetty-server:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
+
+    compile "com.google.inject.extensions:guice-servlet:$guiceVersion"
+
+    compile 'se.darknova:service-module:1.0-SNAPSHOT'
+}
