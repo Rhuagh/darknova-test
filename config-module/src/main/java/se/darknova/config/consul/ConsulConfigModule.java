@@ -18,6 +18,7 @@ public class ConsulConfigModule extends AbstractModule {
         install(Modules.override(new ArchaiusModule()).with(new AbstractModule() {
             @Override
             protected void configure() {
+                bind(ConsulClientConfig.class).toInstance(new ConsulClientConfig());
                 bind(Config.class).annotatedWith(ApplicationOverrideLayer.class).toProvider(
                     ConsulConfigProvider.class).in(Singleton.class);
             }

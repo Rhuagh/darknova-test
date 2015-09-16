@@ -9,8 +9,8 @@ import lombok.Data;
 @Configuration(prefix = "archaius.consul")
 @Data
 public class ConsulClientConfig {
-    private int refreshRate;
-    private String host;
-    private int port;
-    private String prefix;
+    private int refreshRate = 30;
+    private String host = null;
+    private int port = 0;
+    private String prefix = null;
 }
