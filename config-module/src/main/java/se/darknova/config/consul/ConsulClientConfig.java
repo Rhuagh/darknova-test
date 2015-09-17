@@ -9,8 +9,9 @@ import lombok.Data;
 @Configuration(prefix = "consul")
 @Data
 public class ConsulClientConfig {
-    private int refreshRate = 15;
+    private boolean enabled = false;
+    private int refreshRate = 30;
     private String host = "localhost";
     private int port = 8500;
-    private String prefix = "test";
+    private String prefix = "";
 }

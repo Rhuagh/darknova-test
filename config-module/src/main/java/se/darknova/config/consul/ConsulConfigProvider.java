@@ -20,12 +20,7 @@ public class ConsulConfigProvider implements Provider<Config> {
 
     @Override
     public Config get() {
-        ConsulConfigReader reader = ConsulConfigReader.builder()
-            .host(config.getHost())
-            .port(config.getPort())
-            .prefix(config.getPrefix())
-            .build();
-        return dynamicConfig = new PollingDynamicConfig(reader,
+        return dynamicConfig = new PollingDynamicConfig(new ConsulConfigReader(config),
                                                         new FixedPollingStrategy(config.getRefreshRate(),
                                                                                  TimeUnit.SECONDS));
     }

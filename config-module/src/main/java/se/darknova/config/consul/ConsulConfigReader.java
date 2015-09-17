@@ -4,11 +4,11 @@ import com.netflix.archaius.config.polling.PollingResponse;
 import com.orbitz.consul.Consul;
 import com.orbitz.consul.KeyValueClient;
 import com.orbitz.consul.model.kv.Value;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -16,28 +16,29 @@ import java.util.concurrent.Callable;
 /**
  * @author seamonr@gmail.com
  */
-@Builder
-@Slf4j
-@RequiredArgsConstructor
 @ToString
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
+@Slf4j
 public class ConsulConfigReader implements Callable<PollingResponse> {
 
-    private final String host;
-    private final String prefix;
-    private final int port;
+    private final ConsulClientConfig config;
 
     @Override
     public PollingResponse call() throws Exception {
-        if (host == null || port == 0 || prefix == null) {
+        if (!config.isEnabled()) {
             return PollingResponse.noop();
         }
-        log.info("Refreshing configuration from {}:{}/{}", host, port, prefix);
-        KeyValueClient keyValueClient = Consul.newClient(host, port).keyValueClient();
+        log.info("Refreshing configuration from {}:{}/{}",
+                 config.getHost(),
+                 config.getPort(),
+                 config.getPrefix());
+        KeyValueClient keyValueClient = Consul.newClient(config.getHost(),
+                                                         config.getPort()).keyValueClient();
         if (keyValueClient == null) {
             return PollingResponse.noop();
         }
         final Map<String, String> results = new HashMap<>();
-        for(Value value : keyValueClient.getValues(prefix)) {
+        for(Value value : keyValueClient.getValues(config.getPrefix())) {
             results.put(value.getKey(), value.getValueAsString().or(""));
         }
         return PollingResponse.forSnapshot(results);
