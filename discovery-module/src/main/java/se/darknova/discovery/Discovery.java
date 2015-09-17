@@ -10,7 +10,6 @@ import java.util.List;
 public interface Discovery {
     @Value
     class Result {
-
         private final String hostname;
         private final int port;
     }

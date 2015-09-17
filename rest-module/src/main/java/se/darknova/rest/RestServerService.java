@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 
 import com.google.inject.servlet.GuiceFilter;
 import com.netflix.archaius.Config;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -22,18 +23,18 @@ import java.util.EnumSet;
  *
  */
 @Singleton
+@Slf4j
 public class RestServerService extends AbstractIdleService {
 
     private Server server;
 
     private final Provider<GuiceResteasyBootstrapServletContextListener> contextListener;
-
-    private final Config config;
+    private final RestConfig config;
 
     @Inject
     public RestServerService(GuavaServiceRepository serviceRepository,
                              Provider<GuiceResteasyBootstrapServletContextListener> contextListener,
-                             Config config) {
+                             RestConfig config) {
         this.contextListener = contextListener;
         this.config = config;
         serviceRepository.add(this);
@@ -42,7 +43,8 @@ public class RestServerService extends AbstractIdleService {
     @Override
     protected void startUp() throws Exception {
         Preconditions.checkState(server == null, "Server already started");
-        server = new Server(config.getInteger("http.port"));
+        log.info("Starting jetty on port {}", config.getPort());
+        server = new Server(config.getPort());
         final ServletContextHandler sch = new ServletContextHandler(server, "/");
         sch.addFilter(GuiceFilter.class, "/*", EnumSet.allOf(DispatcherType.class));
         sch.addServlet(HttpServletDispatcher.class, "/");
@@ -56,6 +58,8 @@ public class RestServerService extends AbstractIdleService {
     @Override
     protected void shutDown() throws Exception {
         Preconditions.checkState(server != null, "Server not started");
+        log.info("Stopping jetty");
         server.stop();
+        server = null;
     }
 }

@@ -13,4 +13,6 @@ dependencies {
     compile 'org.projectlombok:lombok:1.16.6'
     compile 'com.google.guava:guava:19.0-rc1'
     compile "com.google.inject:guice:$guiceVersion"
+    compile "org.slf4j:slf4j-api:$slf4jVersion"
+    compile "org.slf4j:jul-to-slf4j:$slf4jVersion"
 }

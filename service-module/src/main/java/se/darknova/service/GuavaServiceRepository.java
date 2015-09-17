@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.Service;
 import com.google.common.util.concurrent.ServiceManager;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Singleton;
 import java.util.ArrayList;
@@ -14,20 +15,24 @@ import java.util.List;
  */
 // TODO: logging
 @Singleton
+@Slf4j
 public class GuavaServiceRepository {
 
     private class ServiceManagerListener extends ServiceManager.Listener {
 
         @Override
         public void healthy() {
+            log.info("All services are healthy");
         }
 
         @Override
         public void stopped() {
+            log.info("All services are stopped");
         }
 
         @Override
         public void failure(Service service) {
+            log.error("Service failure in {}: {}", service.toString(), service.failureCause());
             System.exit(1);
         }
     }
