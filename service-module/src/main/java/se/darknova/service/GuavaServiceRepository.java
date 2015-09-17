@@ -42,6 +42,7 @@ public class GuavaServiceRepository {
     private final List<ServiceManager.Listener> serviceManagerListeners = new ArrayList<>();
 
     private boolean started = false;
+    private ServiceManager serviceManager;
 
     public void add(Service service) {
         Preconditions.checkState(!started, "Already started");
@@ -58,10 +59,14 @@ public class GuavaServiceRepository {
         serviceManagerListeners.add(listener);
     }
 
+    public boolean isHealthy() {
+        return started && serviceManager.isHealthy();
+    }
+
     ServiceManager createServiceManager() {
         Preconditions.checkState(!started, "Already started");
         started = true;
-        ServiceManager serviceManager = new ServiceManager(services);
+        serviceManager = new ServiceManager(services);
 
         serviceManager.addListener(new ServiceManagerListener(), MoreExecutors.directExecutor());
         for (ServiceManager.Listener listener : serviceManagerListeners) {
