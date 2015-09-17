@@ -13,11 +13,7 @@ public class DiscoveryModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(Discovery.class).toProvider(DiscoveryProvider.class);
     }
 
-    @Provides
-    @Singleton
-    public Discovery provideDiscovery() {
-        return new DNSDiscovery();
-    }
 }

@@ -35,7 +35,7 @@ public class DNSDiscovery implements Discovery {
                 .map(record -> new Result(record.getTarget().toString(true), record.getPort()))
                 .collect(Collectors.toList());
         } catch (TextParseException e) {
-            System.err.println("Failed parsing service name: " + e);
+            log.error("Failed parsing service name: " + e);
         }
         return ImmutableList.of();
     }

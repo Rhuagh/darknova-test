@@ -15,4 +15,6 @@ dependencies {
     compile "com.google.inject:guice:$guiceVersion"
     compile 'dnsjava:dnsjava:2.1.7'
     compile "org.slf4j:slf4j-api:$slf4jVersion"
+    compile "com.netflix.archaius:archaius2-core:$archaiusVersion"
+
 }

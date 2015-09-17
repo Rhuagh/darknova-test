@@ -1,7 +1,6 @@
 package se.darknova.template.service;
 
 import com.google.inject.Guice;
-import com.netflix.archaius.guice.ArchaiusModule;
 import se.darknova.config.consul.ConsulConfigModule;
 import se.darknova.rest.RestModule;
 import se.darknova.service.GuavaRun;
