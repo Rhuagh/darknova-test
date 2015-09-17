@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = "se.darknova"
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.projectlombok:lombok:1.16.6'
+    compile 'com.google.guava:guava:19.0-rc1'
+    compile "com.google.inject:guice:$guiceVersion"
+    compile "org.slf4j:slf4j-api:$slf4jVersion"
+
+    compile "com.netflix.archaius:archaius2-core:$archaiusVersion"
+    compile "com.netflix.servo:servo-core:$servoVersion"
+    compile "com.netflix.servo:servo-graphite:$servoVersion"
+    compile "com.netflix.servo:servo-cloudwatch:0.1.0"
+
+    compile "se.darknova:service-module:1.0-SNAPSHOT"
+}

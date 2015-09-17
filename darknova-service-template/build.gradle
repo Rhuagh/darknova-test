@@ -50,6 +50,9 @@ project(':service') {
     apply plugin: 'docker'
 
     mainClassName = 'se.darknova.template.service.Main'
+    applicationDefaultJvmArgs = ['-Dcom.sun.management.jmxremote.port=3333',
+                                 '-Dcom.sun.management.jmxremote.ssl=false',
+                                 '-Dcom.sun.management.jmxremote.authenticate=false']
 
     distDocker {
         exposePort 8250
@@ -67,5 +70,6 @@ project(':service') {
         compile 'se.darknova:service-module:1.0-SNAPSHOT'
         compile 'se.darknova:rest-module:1.0-SNAPSHOT'
         compile 'se.darknova:config-module:1.0-SNAPSHOT'
+        compile 'se.darknova:monitor-module:1.0-SNAPSHOT'
     }
 }
