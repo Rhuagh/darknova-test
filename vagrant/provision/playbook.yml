@@ -1,0 +1,16 @@
+---
+- hosts: all
+  vars :
+    consul : 
+      registrator : true
+    elk : 
+      cluster_name : test
+      logstash : true
+      kibana : true
+      rsyslog : 
+        primary : "{{ansible_eth1.ipv4.address}}"
+        secondary : []
+  roles: 
+    - docker-setup
+    - docker-consul
+    - docker-elk

@@ -18,7 +18,9 @@ function provisionMachine() {
 }
 
 function afterStart() {
+    docker-machine ssh $NAME -- mkdir -p /opt/utils/
     docker-machine ssh $1 -- sudo ln -s $SCRIPT_PATH/profile.d/docker-env.sh /etc/profile.d/
+    docker-machine ssh $1 -- sudo ln -s $SCRIPT_PATH/bin /opt/utils/bin
 }
 
 case "$COMMAND" in

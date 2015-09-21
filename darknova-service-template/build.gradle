@@ -51,9 +51,6 @@ project(':service') {
     apply plugin: 'docker'
 
     mainClassName = 'se.darknova.template.service.Main'
-    applicationDefaultJvmArgs = ['-Dcom.sun.management.jmxremote.port=3333',
-                                 '-Dcom.sun.management.jmxremote.ssl=false',
-                                 '-Dcom.sun.management.jmxremote.authenticate=false']
 
     distDocker {
         exposePort 8250

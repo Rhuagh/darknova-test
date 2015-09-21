@@ -1,0 +1,17 @@
+
+DOCKER_OPTS='
+-H tcp://0.0.0.0:2376
+-H unix:///var/run/docker.sock
+--storage-driver aufs
+--tlsverify
+--tlscacert /etc/docker/ca.pem
+--tlscert /etc/docker/server.pem
+--tlskey /etc/docker/server-key.pem
+--label provider=generic
+--log-driver syslog
+--dns {{ansible_docker0.ipv4.address}}
+--dns 8.8.8.8
+--dns-search service.consul
+
+'
+

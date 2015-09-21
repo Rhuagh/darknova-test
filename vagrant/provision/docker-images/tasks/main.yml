@@ -1,0 +1,31 @@
+- name : pull conntrack
+  sudo : yes
+  command : docker pull cap10morgan/conntrack
+
+- name : pull dnsutils
+  sudo : yes
+  command : docker pull aanand/docker-dnsutils
+
+- name : pull consul
+  sudo : yes
+  command : docker pull progrium/consul
+
+- name : pull registrator
+  sudo : yes
+  command : docker pull gliderlabs/registrator
+
+- name : pull elasticsearch
+  sudo : yes
+  command : docker pull elasticsearch
+
+- name : pull logstash
+  sudo : yes
+  command : docker pull logstash
+
+- name : pull kibana
+  sudo : yes
+  command : docker pull kibana
+
+- name : pull java8
+  sudo : yes
+  command : docker pull rhuagh/java8-busybox-bash

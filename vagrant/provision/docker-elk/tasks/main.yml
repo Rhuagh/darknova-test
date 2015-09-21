@@ -1,0 +1,68 @@
+- name : start elasticsearch
+  sudo : yes
+  when : elk is defined and elk.master_ip is defined and elk.cluster_name is defined
+  docker : 
+    name : elasticsearch
+    state : started
+    expose:
+      - 9200
+    ports: 
+      - 9200:9200
+      - 9300:9300
+    image : elasticsearch
+    command : --cluster.name={{elk.cluster_name}} --network.publish_host={{ansible_eth1.ipv4.address}} --discovery.zen.ping.multicast.enabled=false --discovery.zen.ping.unicast.hosts={{elk.master_ip}} --discovery.zen.ping.timeout=3s --discovery.zen.minimum_master_nodes=1
+- name : start elasticsearch
+  sudo : yes
+  when : elk is defined and elk.master_ip is undefined and elk.cluster_name is defined
+  docker : 
+    name : elasticsearch
+    image : elasticsearch
+    state : started
+    expose:
+      - 9200
+    ports: 
+      - 9200:9200
+      - 9300:9300
+    command : --cluster.name={{elk.cluster_name}} --network.publish_host={{ansible_eth1.ipv4.address}} --discovery.zen.ping.multicast.enabled=false --discovery.zen.ping.timeout=3s --discovery.zen.minimum_master_nodes=1
+- name : create logstash directory
+  sudo : yes
+  file : path=/opt/logstash/config state=directory 
+  when : elk is defined and elk.logstash
+- name : logstash config file
+  sudo : yes
+  template : src=syslog.conf dest=/opt/logstash/config/syslog.conf
+  when : elk is defined and elk.logstash
+- name : start logstash
+  sudo : yes
+  when : elk is defined and elk.logstash
+  docker : 
+    name : logstash
+    image : logstash
+    state : started
+    expose:
+      - 25826
+    ports : 
+      - 25826:25826
+      - 25826:25826/udp
+    volumes :
+      - /opt/logstash/config:/config
+    command : logstash -f /config/syslog.conf
+- name : start kibana
+  sudo : yes
+  when : elk is defined and elk.kibana
+  docker : 
+    name : kibana
+    image : kibana
+    state : started
+    ports : 
+      - 5601:5601
+    env : 
+      ELASTICSEARCH_URL: "http://{{ansible_eth1.ipv4.address}}:9200"
+- name : add rsyslog config
+  sudo : yes
+  when : elk is defined and elk.rsyslog is defined
+  template : src=10-logstash.conf dest=/etc/rsyslog.d/10-logstash.conf
+- name : rsyslog restarted
+  sudo : yes
+  when : elk is defined and elk.rsyslog is defined
+  command : service rsyslog restart

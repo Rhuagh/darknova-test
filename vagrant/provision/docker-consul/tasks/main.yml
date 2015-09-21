@@ -1,0 +1,75 @@
+- name : run consul
+  sudo : yes
+  when : consul is defined and consul.client and consul.join_ip is defined
+  docker : 
+    hostname : "{{ansible_hostname}}"
+    restart_policy : always
+    name : consul
+    image : progrium/consul
+    state : started
+    command : -advertise {{ansible_eth1.ipv4.address}} -bootstrap-expect 1 -join {{consul.join_ip}}
+    ports :
+    - "{{ansible_eth1.ipv4.address}}:8300:8300"
+    - "{{ansible_eth1.ipv4.address}}:8301:8301"
+    - "{{ansible_eth1.ipv4.address}}:8302:8302"
+    - "{{ansible_eth1.ipv4.address}}:8400:8400"
+    - "{{ansible_eth1.ipv4.address}}:8500:8500"
+    - "{{ansible_eth1.ipv4.address}}:8301:8301/udp"
+    - "{{ansible_eth1.ipv4.address}}:8302:8302/udp"
+    - "{{ansible_docker0.ipv4.address}}:53:53"
+    - "{{ansible_docker0.ipv4.address}}:53:53/udp"
+
+- name : run consul
+  sudo : yes
+  when : consul is defined and consul.join_ip is defined and (consul.client is undefined or not consul.client)
+  docker : 
+    hostname : "{{ansible_hostname}}"
+    restart_policy : always
+    name : consul
+    image : progrium/consul
+    state : started
+    command : -server -advertise {{ansible_eth1.ipv4.address}} -bootstrap-expect 1 -join {{consul.join_ip}}
+    ports :
+    - "{{ansible_eth1.ipv4.address}}:8300:8300"
+    - "{{ansible_eth1.ipv4.address}}:8301:8301"
+    - "{{ansible_eth1.ipv4.address}}:8302:8302"
+    - "{{ansible_eth1.ipv4.address}}:8400:8400"
+    - "{{ansible_eth1.ipv4.address}}:8500:8500"
+    - "{{ansible_eth1.ipv4.address}}:8301:8301/udp"
+    - "{{ansible_eth1.ipv4.address}}:8302:8302/udp"
+    - "{{ansible_docker0.ipv4.address}}:53:53"
+    - "{{ansible_docker0.ipv4.address}}:53:53/udp"
+
+- name : run consul
+  sudo : yes
+  when : consul is defined and consul.join_ip is undefined
+  docker : 
+    hostname : "{{ansible_hostname}}"
+    restart_policy : always
+    name : consul
+    image : progrium/consul
+    state : started
+    command : -server -advertise {{ansible_eth1.ipv4.address}} -bootstrap-expect 1
+    ports :
+    - "{{ansible_eth1.ipv4.address}}:8300:8300"
+    - "{{ansible_eth1.ipv4.address}}:8301:8301"
+    - "{{ansible_eth1.ipv4.address}}:8302:8302"
+    - "{{ansible_eth1.ipv4.address}}:8400:8400"
+    - "{{ansible_eth1.ipv4.address}}:8500:8500"
+    - "{{ansible_eth1.ipv4.address}}:8301:8301/udp"
+    - "{{ansible_eth1.ipv4.address}}:8302:8302/udp"
+    - "{{ansible_docker0.ipv4.address}}:53:53"
+    - "{{ansible_docker0.ipv4.address}}:53:53/udp"
+
+- name : run registrator
+  sudo : yes
+  when : consul is defined and consul.registrator
+  docker : 
+    restart_policy : always
+    name : registrator
+    image : gliderlabs/registrator
+    state : started
+    command : --ip {{ansible_eth1.ipv4.address}} consul://{{ansible_eth1.ipv4.address}}:8500
+    net : host
+    volumes:
+    - /var/run/docker.sock:/tmp/docker.sock

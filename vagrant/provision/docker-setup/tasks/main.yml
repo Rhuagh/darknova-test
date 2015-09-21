@@ -1,0 +1,18 @@
+- name : create directory
+  sudo : yes
+  file : path=/opt/utils state=directory
+- name : copy files
+  sudo : yes
+  copy : src=bin dest=/opt/utils mode="u=rwx,g=rx,o=rx"
+- name : copy env
+  sudo : yes
+  copy : src=profile.d/docker-env.sh dest=/etc/profile.d/docker-env.sh
+- name : install pip
+  sudo : yes
+  apt : name=python-pip state=present
+- name : install docker-py
+  sudo : yes
+  pip : name=docker-py version=1.1.0
+- name : install docker config
+  sudo : yes
+  template : src=docker dest=/etc/default/docker
