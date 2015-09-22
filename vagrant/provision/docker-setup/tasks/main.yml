@@ -12,7 +12,7 @@
   apt : name=python-pip state=present
 - name : install docker-py
   sudo : yes
-  pip : name=docker-py version=1.1.0
+  pip : name=docker-py version=1.4.0
 - name : install docker config
   sudo : yes
   template : src=docker dest=/etc/default/docker

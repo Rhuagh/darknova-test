@@ -5,8 +5,9 @@
     hostname : "{{ansible_hostname}}"
     restart_policy : always
     name : consul
+    log_driver : syslog
     image : progrium/consul
-    state : started
+    state : reloaded
     command : -advertise {{ansible_eth1.ipv4.address}} -bootstrap-expect 1 -join {{consul.join_ip}}
     ports :
     - "{{ansible_eth1.ipv4.address}}:8300:8300"
@@ -24,10 +25,11 @@
   when : consul is defined and consul.join_ip is defined and (consul.client is undefined or not consul.client)
   docker : 
     hostname : "{{ansible_hostname}}"
+    log_driver : syslog
     restart_policy : always
     name : consul
     image : progrium/consul
-    state : started
+    state : reloaded
     command : -server -advertise {{ansible_eth1.ipv4.address}} -bootstrap-expect 1 -join {{consul.join_ip}}
     ports :
     - "{{ansible_eth1.ipv4.address}}:8300:8300"
@@ -45,10 +47,11 @@
   when : consul is defined and consul.join_ip is undefined
   docker : 
     hostname : "{{ansible_hostname}}"
+    log_driver : syslog
     restart_policy : always
     name : consul
     image : progrium/consul
-    state : started
+    state : reloaded
     command : -server -advertise {{ansible_eth1.ipv4.address}} -bootstrap-expect 1
     ports :
     - "{{ansible_eth1.ipv4.address}}:8300:8300"
@@ -66,9 +69,10 @@
   when : consul is defined and consul.registrator
   docker : 
     restart_policy : always
+    log_driver : syslog
     name : registrator
     image : gliderlabs/registrator
-    state : started
+    state : reloaded
     command : --ip {{ansible_eth1.ipv4.address}} consul://{{ansible_eth1.ipv4.address}}:8500
     net : host
     volumes:

@@ -1,31 +1,31 @@
 - name : pull conntrack
   sudo : yes
-  command : docker pull cap10morgan/conntrack
+  docker_image: name="cap10morgan/conntrack" state=present
 
 - name : pull dnsutils
   sudo : yes
-  command : docker pull aanand/docker-dnsutils
+  docker_image: name="aanand/docker-dnsutils" state=present
 
 - name : pull consul
   sudo : yes
-  command : docker pull progrium/consul
+  docker_image: name="progrium/consul" state=present
 
 - name : pull registrator
   sudo : yes
-  command : docker pull gliderlabs/registrator
+  docker_image: name="gliderlabs/registrator" state=present
 
 - name : pull elasticsearch
   sudo : yes
-  command : docker pull elasticsearch
+  docker_image: name="elasticsearch" state=present
 
 - name : pull logstash
   sudo : yes
-  command : docker pull logstash
+  docker_image: name="logstash" state=present
 
 - name : pull kibana
   sudo : yes
-  command : docker pull kibana
+  docker_image: name="kibana" state=present
 
 - name : pull java8
   sudo : yes
-  command : docker pull rhuagh/java8-busybox-bash
+  docker_image: name="rhuagh/java8-busybox-bash" state=present

@@ -3,7 +3,8 @@
   when : elk is defined and elk.master_ip is defined and elk.cluster_name is defined
   docker : 
     name : elasticsearch
-    state : started
+    log_driver : syslog
+    state : reloaded
     expose:
       - 9200
     ports: 
@@ -17,7 +18,8 @@
   docker : 
     name : elasticsearch
     image : elasticsearch
-    state : started
+    log_driver : syslog
+    state : reloaded
     expose:
       - 9200
     ports: 
@@ -38,7 +40,7 @@
   docker : 
     name : logstash
     image : logstash
-    state : started
+    state : reloaded
     expose:
       - 25826
     ports : 
@@ -53,7 +55,8 @@
   docker : 
     name : kibana
     image : kibana
-    state : started
+    log_driver : syslog
+    state : reloaded
     ports : 
       - 5601:5601
     env : 
@@ -62,7 +65,4 @@
   sudo : yes
   when : elk is defined and elk.rsyslog is defined
   template : src=10-logstash.conf dest=/etc/rsyslog.d/10-logstash.conf
-- name : rsyslog restarted
-  sudo : yes
-  when : elk is defined and elk.rsyslog is defined
-  command : service rsyslog restart
+  notify : restart rsyslog

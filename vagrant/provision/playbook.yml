@@ -11,6 +11,7 @@
         primary : "{{ansible_eth1.ipv4.address}}"
         secondary : []
   roles: 
+    - docker-images
     - docker-setup
     - docker-consul
     - docker-elk
