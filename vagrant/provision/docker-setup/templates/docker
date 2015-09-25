@@ -8,9 +8,13 @@ DOCKER_OPTS='
 --tlscert /etc/docker/server.pem
 --tlskey /etc/docker/server-key.pem
 --label provider=generic
+{% if consul is defined %}
 --dns {{consul.public_ip}}
+{% endif %}
 --dns 8.8.8.8
+{% if consul is defined %}
 --dns-search service.consul
+{% endif %}
 
 '
 

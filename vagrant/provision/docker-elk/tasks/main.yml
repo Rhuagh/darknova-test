@@ -3,7 +3,6 @@
   when : elk is defined and elk.master_ip is defined and elk.cluster_name is defined
   docker : 
     name : elasticsearch
-    log_driver : syslog
     state : reloaded
     expose:
       - 9200
@@ -18,7 +17,6 @@
   docker : 
     name : elasticsearch
     image : elasticsearch
-    log_driver : syslog
     state : reloaded
     expose:
       - 9200
@@ -55,7 +53,6 @@
   docker : 
     name : kibana
     image : kibana
-    log_driver : syslog
     state : reloaded
     ports : 
       - 5601:5601

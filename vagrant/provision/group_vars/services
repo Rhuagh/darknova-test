@@ -1,11 +1,13 @@
 primary_ip : "192.168.43.101"
-secondary_ip : "192.168.43.102"
-third_ip : "192.168.43.103"
-consul.registrator : true
-consul.hostname : "{{ansible_hostname}}"
-consul.public_ip : "{{ansible_eth1.ipv4.address}}"
-consul.bridge_ip : "{{ansible_docker0.ipv4.address}}"
-consul.join_ip : "{{primary_ip}}
-consul.client : true
-elk.rsyslog.primary : "{{primary_ip}}"
-elk.rsyslog.secondary : [ "{{secondary_ip}}", "{{third_ip}}" ]
+secondary_ips : [ "192.168.43.102", "192.168.43.103" ]
+consul :
+  registrator : true
+  hostname : "{{ansible_hostname}}"
+  public_ip : "{{ansible_eth1.ipv4.address}}"
+  bridge_ip : "{{ansible_docker0.ipv4.address}}"
+  join_ip : "{{primary_ip}}"
+  client : true
+elk :
+  rsyslog :
+    primary : "{{primary_ip}}"
+    secondary : secondary_ips

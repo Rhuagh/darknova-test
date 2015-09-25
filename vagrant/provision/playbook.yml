@@ -1,7 +1,6 @@
 ---
 - hosts : all
   roles : 
-    - docker-images
     - docker-setup
     - docker-consul
     - docker-elk
