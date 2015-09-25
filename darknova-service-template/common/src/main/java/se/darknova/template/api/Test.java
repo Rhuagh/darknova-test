@@ -15,5 +15,5 @@ public interface Test {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    String get();
+    String getTestMessage();
 }

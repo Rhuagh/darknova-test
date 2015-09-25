@@ -31,7 +31,7 @@ public class TestResource implements Test {
     private final TestService service;
 
     @Override
-    public String get() {
+    public String getTestMessage() {
         numRequests.incrementAndGet();
         return service.get();
     }

@@ -17,6 +17,6 @@ public class Main {
         Injector injector = Guice.createInjector(Stage.DEVELOPMENT,
                                                  new ArchaiusModule(),
                                                  new TestClientModule());
-        System.out.println(injector.getInstance(Test.class).get());
+        System.out.println(injector.getInstance(Test.class).getTestMessage());
     }
 }
