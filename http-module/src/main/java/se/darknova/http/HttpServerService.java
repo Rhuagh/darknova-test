@@ -1,4 +1,4 @@
-package se.darknova.rest;
+package se.darknova.http;
 
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.AbstractIdleService;
@@ -23,17 +23,17 @@ import java.util.EnumSet;
  */
 @Singleton
 @Slf4j
-public class RestServerService extends AbstractIdleService {
+public class HttpServerService extends AbstractIdleService {
 
     private Server server;
 
     private final Provider<GuiceResteasyBootstrapServletContextListener> contextListener;
-    private final RestConfig config;
+    private final HttpConfig config;
 
     @Inject
-    public RestServerService(GuavaServiceRepository serviceRepository,
+    public HttpServerService(GuavaServiceRepository serviceRepository,
                              Provider<GuiceResteasyBootstrapServletContextListener> contextListener,
-                             RestConfig config) {
+                             HttpConfig config) {
         this.contextListener = contextListener;
         this.config = config;
         serviceRepository.add(this);

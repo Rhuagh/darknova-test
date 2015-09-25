@@ -1,4 +1,4 @@
-package se.darknova.rest;
+package se.darknova.http;
 
 import lombok.RequiredArgsConstructor;
 import org.codehaus.jackson.map.ObjectMapper;

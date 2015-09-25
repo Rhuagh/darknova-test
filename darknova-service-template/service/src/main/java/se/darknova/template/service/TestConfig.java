@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * @author seamonr@gmail.com
  */
-@Configuration(prefix = "test")
+@Configuration(prefix = "se.darknova.test")
 @Data
 public class TestConfig {
     private String message;

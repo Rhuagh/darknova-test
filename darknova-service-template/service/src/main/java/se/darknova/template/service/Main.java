@@ -3,7 +3,7 @@ package se.darknova.template.service;
 import com.google.inject.Guice;
 import se.darknova.config.consul.ConsulConfigModule;
 import se.darknova.monitor.FullMonitorModule;
-import se.darknova.rest.RestModule;
+import se.darknova.http.HttpModule;
 import se.darknova.service.GuavaRun;
 import se.darknova.service.GuavaServiceModule;
 import se.darknova.template.service.api.ResourceModule;
@@ -17,7 +17,7 @@ public class Main {
         Guice.createInjector(new ConsulConfigModule(),
                              new GuavaServiceModule(),
                              new FullMonitorModule(),
-                             new RestModule(),
+                             new HttpModule(),
                              new ResourceModule())
             .getInstance(GuavaRun.class)
             .start();

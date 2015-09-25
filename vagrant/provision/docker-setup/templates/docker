@@ -8,7 +8,7 @@ DOCKER_OPTS='
 --tlscert /etc/docker/server.pem
 --tlskey /etc/docker/server-key.pem
 --label provider=generic
---dns {{ansible_docker0.ipv4.address}}
+--dns {{consul.public_ip}}
 --dns 8.8.8.8
 --dns-search service.consul
 

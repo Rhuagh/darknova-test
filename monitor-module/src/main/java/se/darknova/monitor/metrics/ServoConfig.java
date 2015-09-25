@@ -7,7 +7,7 @@ import lombok.Data;
  * @author simon
  */
 @Data
-@Configuration(prefix = "metrics.servo")
+@Configuration(prefix = "se.darknova.metrics.servo")
 public class ServoConfig {
     private boolean graphiteEnabled = false;
     private String graphiteServerAddress;

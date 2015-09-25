@@ -1,4 +1,4 @@
-package se.darknova.rest;
+package se.darknova.http;
 
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -18,7 +18,7 @@ import javax.ws.rs.core.UriInfo;
  * @author seamonr@gmail.com
  */
 @EqualsAndHashCode(callSuper=false, of={})
-public class RestModule extends ServletModule {
+public class HttpModule extends ServletModule {
 
     @Override
     protected void configureServlets() {
@@ -30,7 +30,7 @@ public class RestModule extends ServletModule {
         bind(GuiceResteasyBootstrapServletContextListener.class);
         bind(ObjectMapperContextResolver.class).in(Singleton.class);
 
-        bind(RestServerService.class).asEagerSingleton();
+        bind(HttpServerService.class).asEagerSingleton();
     }
 
     @RequiredArgsConstructor

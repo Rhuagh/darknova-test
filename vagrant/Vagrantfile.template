@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+    config.vm.provider "virtualbox" do |v|
+      v.name = "{{name}}"
+      v.memory = 2048
+    end
+    config.vm.box = "ubuntu/trusty64"
+    config.vm.hostname = "{{name}}"
+    config.vm.network "private_network", ip: "{{ip}}"
+    config.vm.provision "ansible" do |a|
+      a.playbook = "provision/playbook.yml"
+      a.groups = {
+        "infra_primary" => ["u1"],
+        "infra_secondary" => ["u2", "u3"],
+        "services" => ["u4", "u5"]
+      }
+    end
+end

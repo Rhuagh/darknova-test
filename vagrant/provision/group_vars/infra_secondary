@@ -1,0 +1,13 @@
+primary_ip : "192.168.43.101"
+consul.registrator : true
+consul.hostname : "{{ansible_hostname}}"
+consul.public_ip : "{{ansible_eth1.ipv4.address}}"
+consul.bridge_ip : "{{ansible_docker0.ipv4.address}}"
+consul.join_ip : "{{primary_ip}}
+elk.cluster_name : test
+elk.logstash : true
+elk.kibana : true
+elk.publish_ip : "{{ansible_eth1.ipv4.address}}"
+elk.master_ip : "{{primary_ip}}
+elk.rsyslog.secondary : ["{{ansible_eth1.ipv4.address}}"]
+elk.rsyslog.primary : "{{primary_ip}}”

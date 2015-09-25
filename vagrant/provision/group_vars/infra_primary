@@ -1,0 +1,10 @@
+consul.registrator : true
+consul.hostname : "{{ansible_hostname}}"
+consul.public_ip : "{{ansible_eth1.ipv4.address}}"
+consul.bridge_ip : "{{ansible_docker0.ipv4.address}}"
+elk.cluster_name : test
+elk.logstash : true
+elk.kibana : true
+elk.publish_ip : "{{ansible_eth1.ipv4.address}}"
+elk.rsyslog.primary : "{{ansible_eth1.ipv4.address}}"
+elk.rsyslog.secondary : []

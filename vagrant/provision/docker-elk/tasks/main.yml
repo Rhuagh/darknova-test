@@ -11,7 +11,7 @@
       - 9200:9200
       - 9300:9300
     image : elasticsearch
-    command : --cluster.name={{elk.cluster_name}} --network.publish_host={{ansible_eth1.ipv4.address}} --discovery.zen.ping.multicast.enabled=false --discovery.zen.ping.unicast.hosts={{elk.master_ip}} --discovery.zen.ping.timeout=3s --discovery.zen.minimum_master_nodes=1
+    command : --cluster.name={{elk.cluster_name}} --network.publish_host={{elk.publish_ip}} --discovery.zen.ping.multicast.enabled=false --discovery.zen.ping.unicast.hosts={{elk.master_ip}} --discovery.zen.ping.timeout=3s --discovery.zen.minimum_master_nodes=1
 - name : start elasticsearch
   sudo : yes
   when : elk is defined and elk.master_ip is undefined and elk.cluster_name is defined
@@ -25,7 +25,7 @@
     ports: 
       - 9200:9200
       - 9300:9300
-    command : --cluster.name={{elk.cluster_name}} --network.publish_host={{ansible_eth1.ipv4.address}} --discovery.zen.ping.multicast.enabled=false --discovery.zen.ping.timeout=3s --discovery.zen.minimum_master_nodes=1
+    command : --cluster.name={{elk.cluster_name}} --network.publish_host={{elk.publish_ip}} --discovery.zen.ping.multicast.enabled=false --discovery.zen.ping.timeout=3s --discovery.zen.minimum_master_nodes=1
 - name : create logstash directory
   sudo : yes
   file : path=/opt/logstash/config state=directory 
@@ -60,7 +60,7 @@
     ports : 
       - 5601:5601
     env : 
-      ELASTICSEARCH_URL: "http://{{ansible_eth1.ipv4.address}}:9200"
+      ELASTICSEARCH_URL: "http://{{elk.publish_ip}}:9200"
 - name : add rsyslog config
   sudo : yes
   when : elk is defined and elk.rsyslog is defined
