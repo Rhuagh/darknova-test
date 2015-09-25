@@ -15,11 +15,7 @@ public class GuavaServiceModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(GuavaRun.class);
+        bind(ServiceManager.class).toProvider(ServiceManagerProvider.class).in(Singleton.class);
     }
 
-    @Provides
-    @Singleton
-    public ServiceManager getServiceManager(GuavaServiceRepository repository) {
-        return repository.createServiceManager();
-    }
 }

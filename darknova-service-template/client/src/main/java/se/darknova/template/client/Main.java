@@ -3,6 +3,7 @@ package se.darknova.template.client;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
+import se.darknova.config.consul.ConsulConfigModule;
 import se.darknova.discovery.Discovery;
 import se.darknova.discovery.DiscoveryModule;
 
@@ -12,7 +13,9 @@ import se.darknova.discovery.DiscoveryModule;
 public class Main {
 
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector(Stage.PRODUCTION, new DiscoveryModule());
+        Injector injector = Guice.createInjector(Stage.PRODUCTION,
+                                                 new ConsulConfigModule(),
+                                                 new DiscoveryModule());
         System.out.println(injector.getInstance(Discovery.class).findService(args[0]));
     }
 }

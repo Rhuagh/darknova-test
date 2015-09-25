@@ -42,6 +42,7 @@ project(':client') {
     }
 
     dependencies {
+        compile 'se.darknova:config-module:1.0-SNAPSHOT'
         compile 'se.darknova:discovery-module:1.0-SNAPSHOT'
     }
 }
