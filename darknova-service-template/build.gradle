@@ -36,7 +36,7 @@ project(':common') {
     }
 }
 
-project(':client') {
+project(':test-client') {
     apply plugin: 'application'
     apply plugin: 'docker'
 
@@ -54,7 +54,7 @@ project(':client') {
     }
 }
 
-project(':service') {
+project(':test-service') {
     apply plugin: 'application'
     apply plugin: 'docker'
 

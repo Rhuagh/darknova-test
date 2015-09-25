@@ -1,1 +1,1 @@
-include 'common', 'service', 'client'
+include 'common', 'test-service', 'test-client'
