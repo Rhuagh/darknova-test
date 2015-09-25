@@ -6,7 +6,7 @@
     restart_policy : always
     name : consul
     image : progrium/consul
-    state : reloaded
+    state : started
     command : -advertise {{consul.public_ip}} -join {{consul.join_ip}}
     ports :
     - "{{consul.public_ip}}:8300:8300"
@@ -27,7 +27,7 @@
     restart_policy : always
     name : consul
     image : progrium/consul
-    state : reloaded
+    state : started
     command : -server -advertise {{consul.public_ip}} -bootstrap-expect 3 -join {{consul.join_ip}}
     ports :
     - "{{consul.public_ip}}:8300:8300"
@@ -48,7 +48,7 @@
     restart_policy : always
     name : consul
     image : progrium/consul
-    state : reloaded
+    state : started
     command : -server -advertise {{consul.public_ip}} -bootstrap-expect 3
     ports :
     - "{{consul.public_ip}}:8300:8300"
@@ -68,7 +68,7 @@
     restart_policy : always
     name : registrator
     image : gliderlabs/registrator
-    state : reloaded
+    state : started
     command : --ip {{consul.public_ip}} consul://{{consul.public_ip}}:8500
     net : host
     volumes:

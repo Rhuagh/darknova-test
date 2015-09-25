@@ -2,3 +2,6 @@
 *.iml
 .gradle
 build/
+vagrant/machines
+vagrant/images
+.vagrant

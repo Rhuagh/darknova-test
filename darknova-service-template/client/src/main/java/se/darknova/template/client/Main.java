@@ -3,19 +3,20 @@ package se.darknova.template.client;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
-import se.darknova.config.consul.ConsulConfigModule;
-import se.darknova.discovery.Discovery;
-import se.darknova.discovery.DiscoveryModule;
+import com.netflix.archaius.guice.ArchaiusModule;
+import se.darknova.template.api.Test;
+import se.darknova.template.client.api.TestClientModule;
 
 /**
  * @author seamonr@gmail.com
  */
 public class Main {
 
+
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector(Stage.PRODUCTION,
-                                                 new ConsulConfigModule(),
-                                                 new DiscoveryModule());
-        System.out.println(injector.getInstance(Discovery.class).findService(args[0]));
+        Injector injector = Guice.createInjector(Stage.DEVELOPMENT,
+                                                 new ArchaiusModule(),
+                                                 new TestClientModule());
+        System.out.println(injector.getInstance(Test.class).get());
     }
 }

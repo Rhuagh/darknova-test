@@ -6,8 +6,10 @@ import com.google.inject.Inject;
 
 import com.google.inject.servlet.GuiceFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jetty.server.NCSARequestLog;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.server.handler.RequestLogHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener;
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
@@ -50,8 +52,17 @@ public class HttpServerService extends AbstractIdleService {
         sch.addEventListener(contextListener.get());
         final HandlerCollection handlers = new HandlerCollection();
         handlers.addHandler(server.getHandler());
+        handlers.addHandler(createRequestLogHandler());
         server.setHandler(handlers);
         server.start();
+    }
+
+    private RequestLogHandler createRequestLogHandler() {
+        NCSARequestLog requestLog = new NCSARequestLog();
+        requestLog.setExtended(true);
+        RequestLogHandler handler = new RequestLogHandler();
+        handler.setRequestLog(requestLog);
+        return handler;
     }
 
     @Override

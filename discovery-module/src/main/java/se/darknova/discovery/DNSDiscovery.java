@@ -1,6 +1,7 @@
 package se.darknova.discovery;
 
 import com.google.common.collect.ImmutableList;
+import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import org.xbill.DNS.Lookup;
 import org.xbill.DNS.Record;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
  * @author seamonr@gmail.com
  */
 @Slf4j
+@Singleton
 public class DNSDiscovery implements Discovery {
 
     public List<Result> findService(String serviceName)  {

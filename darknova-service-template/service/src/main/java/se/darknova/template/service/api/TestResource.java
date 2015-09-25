@@ -4,6 +4,7 @@ import com.netflix.servo.annotations.DataSourceType;
 import com.netflix.servo.annotations.Monitor;
 import lombok.RequiredArgsConstructor;
 import se.darknova.monitor.metrics.MonitorClass;
+import se.darknova.template.api.Test;
 import se.darknova.template.service.TestService;
 
 import javax.inject.Inject;
@@ -17,11 +18,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author seamonr@gmail.com
  */
-@Path("/test")
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 @MonitorClass
 @Singleton
-public class TestResource {
+public class TestResource implements Test {
 
     @Monitor(name = "TestResource.numRequests",
              type = DataSourceType.COUNTER,
@@ -30,8 +30,7 @@ public class TestResource {
 
     private final TestService service;
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Override
     public String get() {
         numRequests.incrementAndGet();
         return service.get();

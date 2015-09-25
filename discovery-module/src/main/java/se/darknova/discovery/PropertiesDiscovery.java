@@ -1,6 +1,7 @@
 package se.darknova.discovery;
 
 import com.google.common.collect.ImmutableList;
+import com.google.inject.Singleton;
 import com.netflix.archaius.Config;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @Slf4j
+@Singleton
 public class PropertiesDiscovery implements Discovery {
 
     private final Config config;

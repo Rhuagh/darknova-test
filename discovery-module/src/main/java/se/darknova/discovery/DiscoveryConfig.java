@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * @author simon
  */
-@Configuration(prefix = "discovery")
+@Configuration(prefix = "se.darknova.discovery")
 @Data
 public class DiscoveryConfig {
     public enum Type {

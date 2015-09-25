@@ -16,3 +16,4 @@
 - name : install docker config
   sudo : yes
   template : src=docker dest=/etc/default/docker
+  notify : restart docker

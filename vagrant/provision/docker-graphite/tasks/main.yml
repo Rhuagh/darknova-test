@@ -2,9 +2,10 @@
   sudo : yes
   docker : 
     name : graphite
-    restart_always : true
+    restart_policy : always
     image : hopsoft/graphite-statsd
-    state : reloaded
+    state : started
+    log_driver : syslog
     ports : 
       - 81:80
       - 2003:2003

@@ -3,7 +3,7 @@
   when : elk is defined and elk.master_ip is defined and elk.cluster_name is defined
   docker : 
     name : elasticsearch
-    state : reloaded
+    state : started
     expose:
       - 9200
     ports: 
@@ -17,7 +17,7 @@
   docker : 
     name : elasticsearch
     image : elasticsearch
-    state : reloaded
+    state : started
     expose:
       - 9200
     ports: 
@@ -38,7 +38,7 @@
   docker : 
     name : logstash
     image : logstash
-    state : reloaded
+    state : started
     expose:
       - 25826
     ports : 
@@ -53,7 +53,7 @@
   docker : 
     name : kibana
     image : kibana
-    state : reloaded
+    state : started
     ports : 
       - 5601:5601
     env : 
