@@ -23,10 +23,6 @@ subprojects {
         compile "com.google.inject:guice:$guiceVersion"
         compile "org.slf4j:slf4j-api:$slf4jVersion"
 
-        // logging backend
-        compile "ch.qos.logback:logback-core:$logbackVersion"
-        compile "ch.qos.logback:logback-classic:$logbackVersion"
-        runtime "org.codehaus.groovy:groovy:$groovyVersion"
     }
 }
 
@@ -51,6 +47,12 @@ project(':test-client') {
         compile project(':common')
         compile 'se.darknova:config-module:1.0-SNAPSHOT'
         compile 'se.darknova:http-client:1.0-SNAPSHOT'
+
+        // logging backend
+        compile "org.slf4j:log4j-over-slf4j:$slf4jVersion"
+        compile "ch.qos.logback:logback-core:$logbackVersion"
+        compile "ch.qos.logback:logback-classic:$logbackVersion"
+        runtime "org.codehaus.groovy:groovy:$groovyVersion"
     }
 }
 
@@ -77,5 +79,11 @@ project(':test-service') {
         compile 'se.darknova:http-module:1.1-SNAPSHOT'
         compile 'se.darknova:config-module:1.0-SNAPSHOT'
         compile 'se.darknova:monitor-module:1.0-SNAPSHOT'
+
+        // logging backend
+        compile "org.slf4j:log4j-over-slf4j:$slf4jVersion"
+        compile "ch.qos.logback:logback-core:$logbackVersion"
+        compile "ch.qos.logback:logback-classic:$logbackVersion"
+        runtime "org.codehaus.groovy:groovy:$groovyVersion"
     }
 }
